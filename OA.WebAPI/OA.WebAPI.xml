@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OA.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:OA.WebAPI.Controllers.AuthController.Signup(OA_DataAccess.Signup)">
+            <summary>
+            Signup api to create user
+            </summary>
+        </member>
+        <member name="M:OA.WebAPI.Controllers.AuthController.Login(OA_DataAccess.Login)">
+            <summary>
+            Login api to get JWT barrer token
+            </summary>
+        </member>
+    </members>
+</doc>
