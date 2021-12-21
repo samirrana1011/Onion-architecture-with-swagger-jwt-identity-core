@@ -17,9 +17,9 @@ namespace OA_DataAccess
         [Required]
         public string Tag { get; set; }
 
-        public string? UserID { get; set; }
+        [Display(AutoGenerateField = false)]
+        public string UserID { get; set; }
 
-        [ForeignKey("UserID")]
-        public virtual User User { get; set; }
+       
     }
 }

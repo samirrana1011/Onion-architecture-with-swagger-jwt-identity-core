@@ -44,13 +44,16 @@ namespace OA_Service
             {
                 return null;
             }
+            User usr =await _userManager.FindByEmailAsync(s.Email);
 
-            var authClaims = new List<Claim>
+            var authClaims = new List<Claim>();
+            
+            if (usr != null)
             {
-                new Claim(ClaimTypes.Email,s.Email),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
-            };
-
+                authClaims.Add(new Claim(ClaimTypes.Sid, usr.Id));
+                authClaims.Add(new Claim(ClaimTypes.Email, s.Email));
+                authClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            }
             var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
 
             var token = new JwtSecurityToken(

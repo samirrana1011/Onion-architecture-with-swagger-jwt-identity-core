@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,9 +23,17 @@ namespace OA.WebAPI.Controllers
         }
        
         [HttpGet]
-        public IEnumerable<Note> Get()
+        public async Task<IEnumerable<Note>> Get()
         {
-            var Products = _repo.GetAllNotes();
+            var Identity = HttpContext.User.Identity as ClaimsIdentity;
+            string SID = "";
+            if (Identity != null)
+            {
+                var userCliams = Identity.Claims;
+                SID = userCliams.FirstOrDefault(p => p.Type == ClaimTypes.Sid)?.Value;
+              
+            }
+            var Products =await _repo.GetAllUserNotes(SID);
             return Products.ToArray();
         }
         [HttpPost("addnote")]
@@ -32,10 +41,12 @@ namespace OA.WebAPI.Controllers
         {
             try
             {
-                var currentUser = HttpContext.User;
-                if (currentUser.HasClaim(c => c.Type == "Email"))
+                var Identity = HttpContext.User.Identity as ClaimsIdentity;
+                if (Identity !=null)
                 {
-
+                    var userCliams = Identity.Claims;
+                    string SID = userCliams.FirstOrDefault(p => p.Type == ClaimTypes.Sid)?.Value;
+                    note.UserID = SID;
                 }
                 //    note.User = currentUser;
                 _repo.AddNote(note);
