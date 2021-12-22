@@ -112,6 +112,7 @@ namespace OA_Repository
             }
             try
             {
+                entities.Update(entity);
                 _context.SaveChanges();
             }
             catch (Exception ex)

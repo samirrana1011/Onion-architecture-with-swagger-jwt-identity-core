@@ -20,13 +20,20 @@ namespace OA_Service
         {
             _repository.Insert(note);
         }
-
+        public void DeleteNote(Note note)
+        {
+            _repository.Delete(note);
+        }
+        public void UpdateNote(Note note)
+        {
+            _repository.Update(note);
+        }
         public async Task<IEnumerable<Note>> GetAllUserNotes(string Uid)
         {
             //await unitOfWork.YourRepository.GetAsync(filter: w => w.OtherKeyNavigation.Id == 123456,
             //    includeProperties: "OtherKeyNavigation", first: 20, offset: 0);
 
-            return await _repository.GetFilteredData(filter: w => w.UserID==Uid, first: 2, offset: 0);
+            return await _repository.GetFilteredData(filter: w => w.UserID==Uid);
         }
 
         public IEnumerable<Note> GetAllNotes()

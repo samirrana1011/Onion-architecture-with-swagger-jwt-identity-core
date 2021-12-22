@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace OA_Service
 {
-   public interface INoteRepo
+    public interface INoteRepo
     {
         IEnumerable<Note> GetAllNotes();
         Note GetNoteByID(int id);
         void AddNote(Note note);
         Task<IEnumerable<Note>> GetAllUserNotes(string Uid);
-
+        void DeleteNote(Note note);
+        void UpdateNote(Note note);
     }
 }

@@ -11,6 +11,8 @@ namespace OA_Service
     {
         Task<IdentityResult> SignUpAsync(Signup signup);
 
-        Task<string> LoginAsync(Login s);
+        Task<RefreshRequest> LoginAsync(Login s);
+
+        Task<RefreshRequest> GetAndGenAccessTokenAndRefreshTokenFromExsting(RefreshRequest refreshRequest);
     }
 }

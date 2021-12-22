@@ -8,6 +8,8 @@ namespace OA_DataAccess
     public class User : IdentityUser
     {
         public string FName { get; set; }
+        public string RefreshToken { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+
     }
 }
